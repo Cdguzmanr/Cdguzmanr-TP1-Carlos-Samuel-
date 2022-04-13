@@ -3,3 +3,4 @@ def corregirError(string):
         return "No puede ingresar un valor vacío"
     elif string.find(" ") != -1:    # Valida en caso de ingresar espacios en blanco entre los dígitos             
         return "No debe digitar espacios"
+
