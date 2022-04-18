@@ -80,7 +80,36 @@ def validarGeneral(pnum, numeroMinimo):
     ### Definición de Funciones ###
 
 # 2- Cifrado por llave
-# En eso estoy <3 
+    # Codificación #
+def procesarCodLlave(pstringProceso):
+    """
+    Funcionamiento: Calcular --- Tipo de proceso que realiza
+    Entradas: pstringProceso (str) dato con el que se trabajará.
+    Salidas: Resultado del proceso  
+    """
+    #Insertar proceso matemático
+    orden = "abcdefghijklmnopqrstuvwxyz"
+    return "respuesta"
+def validarXX(pstringValidar):
+    """
+    Funcionamiento: Validar las entradas para el ejercicio
+    Entradas: pstringValidar (str) dato con el que se trabaja.
+    Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
+    """
+    if re.match("^---$", pstringValidar): #<-- Aquí se insertan los parametros de validación requeridos
+        return procesarCodLlave(pstringValidar)
+    else:
+        return corregirError(pstringValidar)
+def obtenerCodLlave():
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: string (str) dato con el que se trabajará.
+    Salidas: Continua con el proceso de validación
+    """
+    print("\n_____________________________________________________________\n\nBienvenido al ejercicio #X, 'Título'") 
+    string = input("Por favor, ingrese una palabra: ")
+    return validarCodLlave(string)
+
 
 
 # Funcionens de menú
