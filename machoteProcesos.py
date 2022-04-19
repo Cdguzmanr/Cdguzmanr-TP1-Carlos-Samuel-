@@ -1,8 +1,10 @@
-# para que no se vea error
+# Para que no se vea error --- NO COPIAR
 import re
 def corregirString(x): 
     return ""
-#############################
+def menu():
+    return ""
+#########################################
 
 # X - Tipo de cifrado
 def procesarCodXXX(PARAMETROS): # Proceso de Codificación
@@ -12,7 +14,7 @@ def procesarCodXXX(PARAMETROS): # Proceso de Codificación
     Salidas: Resultado del proceso  
     """
     # Insertar proceso de CODIFICACIÓN
-    return ""
+    return "Mensaje codificado: "
 def procesarDecodXXX(PARAMETROS): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de -------------
@@ -20,7 +22,7 @@ def procesarDecodXXX(PARAMETROS): # Proceso de Decodificación
     Salidas: Resultado del proceso  
     """
     # Insertar proceso de DECODIFICACIÓN
-    return ""
+    return "Mensaje decodificado: "
 def validarCodXXX(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
@@ -50,6 +52,8 @@ def obtenerCodXXX(accion):
     if corregirString(clave)==False:
         return obtenerCodXXX(accion)
     if accion == "codificar":
-        return procesarCodXXX(frase, clave) #<-- insertar parametros dentro de los parentesis
+        print(procesarCodXXX(frase, clave)) #<-- insertar parametros dentro de los parentesis
+        return menu()
     else:
-        return procesarDecodXXX(frase, clave)
+        print(procesarDecodXXX(frase, clave))
+        return menu()
