@@ -8,18 +8,21 @@
 # Importación de librerias
 import re
 
-# Validación general
+# Funciones de validación general   <-- Serán utilizadas repetidamente a lo largo del código
 def validarString(string): # Valida que solo ingrese valores alphabéticos
     """
     Funcionamiento: Validar las entradas afabéticas
     Entradas: string (str) dato a trabajar
     Salidas: (Booleano) realimentar al usuario con la corrección de posibles errores o permitir el avance del proceso.
     """
-    if re.match("^[a-z]+$", string):
-        return True
+    if re.match("^[a-z]+$", string): # Valida el ingreso solo de palabras en letras minúsculas
+        return True   
     elif re.match("^[^a-z]+$", string):   
         print("Debe ingresar solamente valores alphabeticos")
-        return False            
+        return False       
+    elif string.count(" ")!=0:
+        print("No debe digitar espacios")    
+        return False 
     else:
         print("Valor inválido, por favor intentelo nuevamente")
         return False   
@@ -30,9 +33,12 @@ def validarFrase(pValidar):
     Entradas: pstringValidar (str) dato con el que se trabaja.
     Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
     """
-    if re.match("^[a-z ]+$", pValidar):
+    if re.match("^[a-z ]+$", pValidar): # Dado que se valida ua frase, se permite el ingreso solo de letras (minúsculas) y espacios
         return True
-    elif re.match("^[^a-z ]+$", pValidar):   
+    elif re.match("^[A-Z]+$", pValidar):   
+        print("Debe ingresar solamente letras minúsculas")
+        return False      
+    elif re.match("^[^a-zA-Z ]+$", pValidar):   
         print("Debe ingresar solamente valores alphabeticos o espacios")
         return False            
     else:
@@ -154,38 +160,42 @@ def obtenerCodLlave(accion):
 def procesarCodXOR(pfrase, pclave): # Proceso de Codificación
     """
     Funcionamiento: Codificar una frase con el método de Sustitución XOR y llave
-    Entradas: ------ completar ------
+    Entradas: pfrase (str) frase a trabajar, pclave (str) clave utilizada
     Salidas: Resultado del proceso  
     """
-    fraseCodificada, letraClave, letraFrase, vXOR = "", 0, 0, "" # Definición de variables
-    while letraClave <= len(pclave)-1:
-        # if pfrase[letraFrase]==" ":
-        #     fraseCodificada+=chr
-        fraseBinario = bin(ord(pfrase[letraFrase])) # Definen los valores binarios de la respectiva letra
-        claveBinario = bin(ord(pclave[letraClave]))
-        # Proceso de codificación XOR de los valores binarios
-        for i in range(2, len(pfrase)):
-            if fraseBinario[i] == claveBinario[i]:
-                vXOR += "1"
-            else:
-                vXOR += "0"
-        fraseCodificada+=chr(int(vXOR, 2))    
-        # Sigue avanzando por las palabras    
+    fraseCodificada, letraClave, letraFrase = "", 0, 0 # Definición de variables
+    while letraClave < len(pclave):
+        valor = chr(ord(pfrase[letraFrase])^ord(pclave[letraClave])) # se define el caracter, del valor ordenado del XOR entre las letras en curso
+        fraseCodificada+=valor
         letraClave+=1
         letraFrase+=1
         if letraFrase == len(pfrase):
             break
         if letraClave == len(pclave):
             letraClave = 0
-    return "Mensaje codificado: "+fraseCodificada
+    return f"Mensaje codificado: {repr(fraseCodificada)}"
 def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     """
-    Funcionamiento: Decodificar una frase con el método de -------------
-    Entradas: ------ (str) dato con el que se trabaja.
+    Funcionamiento: Decodificar una frase con el método de Sustitución XOR y llave
+    Entradas: pfrase (str) frase a trabajar, pclave (str) clave utilizada
     Salidas: Resultado del proceso  
     """
     # Insertar proceso de DECODIFICACIÓN
     return "Mensaje decodificado: "
+def validarDecodXOR(pValidar):
+    """
+    Funcionamiento: Validar las entradas para el ejercicio
+    Entradas: ---- (str) dato con el que se trabaja.
+    Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
+    """
+    if pValidar!="":
+        return True     
+    if  re.match("^[A-Z]+$", pValidar):   
+        print("Debe ingresar solamente valores alphabeticos")
+        return False       
+    else:
+        print("No puede dejar espacios en blanco")
+        return False   
 def obtenerCodXOR(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -193,19 +203,24 @@ def obtenerCodXOR(accion):
     Salidas: Continua con el procesamiento respectivo
     """
     print(f"\n_____________________________________________________________\nSustitución XOR y llave - ({accion})") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
-    if validarFrase(frase)==False:
-        return obtenerCodXOR(accion)
-    clave = input("Por favor, ingrese la clave: ").lower()
-    if validarString(clave)==False:
-        return obtenerCodXOR(accion)
     if accion == "codificar":
+        frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        if validarFrase(frase)==False:
+            return obtenerCodXOR(accion)
+        clave = input("Por favor, ingrese la clave: ").lower()
+        if validarString(clave)==False:
+            return obtenerCodXOR(accion)        
         print(procesarCodXOR(frase, clave))
         return menu()
     else:
+        frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
+        if validarDecodXOR(frase)==False:
+            return obtenerCodXOR(accion)
+        clave = input("Por favor, ingrese la clave: ").lower()
+        if validarString(clave)==False:
+            return obtenerCodXOR(accion)        
         print(procesarDecodXOR(frase, clave))
         return menu()
-
 
 # Funcionens de menú
 def elegirAccion(ejercicio):
