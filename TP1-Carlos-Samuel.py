@@ -165,7 +165,23 @@ def procesarDecodVigenere(pfrase):
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    return "Mensaje decodificado: "
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+    fraseCodificada, letraFrase, posicion, aux= "",0,0,1
+    while letraFrase <= len(pfrase)-1:
+        if pfrase[letraFrase] == " ":
+            fraseCodificada+= " "
+            letraFrase+=1
+            aux = 1
+        posicion = alfabeto.find(pfrase[letraFrase])
+        if esPar(aux)==False:
+            if (alfabeto.find(pfrase[letraFrase]) != -1):
+                fraseCodificada+= alfabeto[posicion-2]
+        else:
+            if (alfabeto.find(pfrase[letraFrase]) != -1):
+                fraseCodificada+= alfabeto[posicion-3]
+        letraFrase+=1
+        aux+=1
+    return "Mensaje decodificado: "+fraseCodificada
 
 def obtenerCodVigenere(accion):
     """
@@ -250,7 +266,7 @@ def menu():
             elif control == 1:
                 return obtenerCodVigenere("codificar")
             else:
-                return obtenerDecodVigenere("decodificar")
+                return obtenerCodVigenere("decodificar")
         elif opcion == "4":
             return menu()
         elif opcion == "5":
