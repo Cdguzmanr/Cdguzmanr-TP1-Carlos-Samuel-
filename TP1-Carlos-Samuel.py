@@ -131,6 +131,7 @@ def procesarCodCesar(pfrase): # Proceso de Codificación
             fraseCodificada+= alfabeto[posicion+3]
         letraFrase+=1
     return "Mensaje codificado: "+fraseCodificada.upper()
+
 def procesarDecodCesar(pfrase): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de Cifrado César
@@ -148,12 +149,14 @@ def procesarDecodCesar(pfrase): # Proceso de Decodificación
             fraseCodificada+= alfabeto[posicion-3]
         letraFrase+=1
     return "Mensaje decodificado: "+fraseCodificada.lower()
+
 def obtenerCodCesar(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
+    frase=""
     print(f"\n_____________________________________________________________\nCifrado César - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
@@ -190,6 +193,7 @@ def procesarCodLlave(pfrase, pclave): # Proceso de Codificación
         if letraClave == len(pclave):
             letraClave = 0
     return "Mensaje codificado: "+fraseCodificada
+
 def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de llave
@@ -214,12 +218,14 @@ def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
         if letraClave == len(pclave):
             letraClave = 0
     return "Mensaje decodificado: "+fraseCodificada
+
 def obtenerCodLlave(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
+    frase,clave="",""
     print(f"\n_____________________________________________________________\nCifrado por llave - ({accion})\n") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
@@ -258,6 +264,7 @@ def procesarCodVigenere(pfrase):
         letraFrase+=1
         aux+=1
     return "Mensaje codificado: "+fraseCodificada
+
 def procesarDecodVigenere(pfrase):
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
@@ -281,13 +288,14 @@ def procesarDecodVigenere(pfrase):
         letraFrase+=1
         aux+=1
     return "Mensaje decodificado: "+fraseCodificada
+
 def obtenerCodVigenere(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    frase,cifra='',0
+    frase,cifra="",0
     print(f"\n_____________________________________________________________\nSustitución Vigenére - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
@@ -320,6 +328,7 @@ def procesarCodXOR(pfrase, pclave): # Proceso de Codificación
         if letraClave == len(pclave):
             letraClave = 0
     return f"Mensaje codificado: {repr(fraseCodificada)}"
+
 def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución XOR y llave
@@ -328,12 +337,14 @@ def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     """
     # Insertar proceso de DECODIFICACIÓN
     return "Mensaje decodificado: "
+
 def obtenerCodXOR(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
+    frase,clave="",""
     print(f"\n_____________________________________________________________\nSustitución XOR y llave - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
@@ -348,16 +359,22 @@ def obtenerCodXOR(accion):
         print(procesarDecodXOR(frase, clave))
         return menu()
 
-# 6 - Mensaje inverso
-def procesarCodMInverso(pfrase, accion): # Proceso de Codificación
+# 5 - Palabra inversa
+def procesarCodPalabraInver(pfrase, accion):
     """
-    Funcionamiento: Codificar una frase con el método de Mensaje inverso
-    Entradas: pfrase (str) frase a trabajar, accion (str) acción que se realizará
-    Salidas: Resultado del proceso  
-    Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
-    Por lo tanto, unicamente diferencié la impresión del resultado, utilizando el segundo parámetro (accion)    
+    Funcionamiento: Codifica y decodifica una frase con el método de Palabra inversa
+    Entradas: pfrase(string)
+    Salidas: Resultado del proceso
     """
-    return f"Mensaje {accion}: {pfrase[::-1]}"
+    palabra,inversa=[],""
+    palabra = pfrase[::-1].split(" ")
+    i=-1
+    for n in range(len(palabra)):
+        inversa+= palabra[i]
+        inversa+=" "
+        i-=1
+    return f"Mensaje {accion}: {inversa}"
+
 def validarMInverso(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
@@ -372,21 +389,93 @@ def validarMInverso(pValidar):
     else:
         print("Valor inválido, por favor intentelo nuevamente")
         return False   
+
+def obtenerCodPalabraInver(accion):
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: accion (str) acción que se realizará posteriormente 
+    Salidas: Continua con el procesamiento respectivo
+    """
+    frase=""
+    print(f"\n_____________________________________________________________\nPalabra inversa - ({accion})") 
+    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+    if validarMInverso(frase)==False:
+        return obtenerCodPalabraInver(accion)
+    if accion == "codificar":
+        print(procesarCodPalabraInver(frase,accion))
+        return menu()
+    else:
+        print(procesarCodPalabraInver(frase,accion))
+        return menu()
+
+# 6 - Mensaje inverso
+def procesarCodMInverso(pfrase, accion): # Proceso de Codificación
+    """
+    Funcionamiento: Codificar una frase con el método de Mensaje inverso
+    Entradas: pfrase (str) frase a trabajar, accion (str) acción que se realizará
+    Salidas: Resultado del proceso  
+    Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
+    Por lo tanto, unicamente diferencié la impresión del resultado, utilizando el segundo parámetro (accion)    
+    """
+    return f"Mensaje {accion}: {pfrase[::-1]}"
+
 def obtenerCodMInverso(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
+    frase=""
     print(f"\n_____________________________________________________________\nMensaje inverso - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
     if validarMInverso(frase)==False:
         return obtenerCodMInverso(accion)
     if accion == "codificar":
-        print(procesarCodMInverso(frase, "codificado")) 
+        print(procesarCodMInverso(frase,accion)) 
         return menu()
     else:
-        print(procesarCodMInverso(frase, "decodificado"))
+        print(procesarCodMInverso(frase,accion))
+        return menu()
+
+# 7 - Cifrado por código telefónico
+def procesarCodTel(pfrase):
+    """
+    Funcionamiento: Codifica y decodifica una frase con el método de Palabra inversa
+    Entradas: pfrase(string)
+    Salidas: Resultado del proceso
+    """
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+    n2,n3,n4,n5,n6,n7,n8,n9="abc","def","ghi","jkl","mno","pqrs","tuv","wyz"
+    for n in range(len(pfrase)):
+        if n == alfabeto[0:2]:
+            print("Falta por hacer")
+
+    return "Mensaje codificado: "
+
+def procesarDecodTel(pfrase):
+    """
+    Funcionamiento: Codifica y decodifica una frase con el método de Palabra inversa
+    Entradas: pfrase(string)
+    Salidas: Resultado del proceso
+    """
+    return "Mensaje decodificado: "
+
+def obtenerCodTelefono(accion):
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: accion (str) acción que se realizará posteriormente 
+    Salidas: Continua con el procesamiento respectivo
+    """
+    frase=""
+    print(f"\n_____________________________________________________________\nCifrado por código telefónico - ({accion})") 
+    frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
+    if validarMInverso(frase)==False:
+        return obtenerCodMInverso(accion)
+    if accion == "codificar":
+        print(procesarCodMInverso(frase))
+        return menu()
+    else:
+        print(procesarCodMInverso(frase))
         return menu()
 
 # Funcionens de menú
@@ -473,9 +562,9 @@ def menu(): ### Menú principal
             if control == 0:
                 return menu()
             elif control == 1:
-                return #obtenerCodPInversa("codificar")
+                return obtenerCodPalabraInver("codificar")
             else:
-                return #obtenerCodPInversa("decodificar")
+                return obtenerCodPalabraInver("decodificar")
         elif opcion == "6":
             ejercicio = "Mensaje inverso"
             control = elegirAccion(ejercicio)
@@ -491,9 +580,9 @@ def menu(): ### Menú principal
             if control == 0:
                 return menu()
             elif control == 1:
-                return #obtenerCodTelefonico("codificar")
+                return obtenerCodTelefono("codificar")
             else:
-                return #obtenerCodMTelefonico("decodificar")
+                return obtenerCodTelefono("decodificar")
         else:
             ejercicio = "Cifrado binario"
             control = elegirAccion(ejercicio)
