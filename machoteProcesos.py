@@ -1,6 +1,8 @@
 # Para que no se vea error --- NO COPIAR
 import re
-def corregirString(x): 
+def validarString(x): 
+    return ""
+def validarFrase(x): 
     return ""
 def menu():
     return ""
@@ -46,10 +48,10 @@ def obtenerCodXXX(accion):
     """
     print(f"\n_____________________________________________________________\nXXX título del cifrado XXX - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
-    if validarCodXXX(frase)==False:
+    if validarFrase(frase)==False:
         return obtenerCodXXX(accion)
     clave = input("Por favor, ingrese la clave: ").lower()
-    if corregirString(clave)==False:
+    if validarString(clave)==False:
         return obtenerCodXXX(accion)
     if accion == "codificar":
         print(procesarCodXXX(frase, clave)) #<-- insertar parametros dentro de los parentesis
