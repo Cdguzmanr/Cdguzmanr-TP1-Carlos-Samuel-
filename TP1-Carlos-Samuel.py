@@ -45,6 +45,31 @@ def corregirError(string):
     elif string.find(" ") != -1:    # Valida en caso de ingresar espacios en blanco entre los dígitos             
         return "No debe digitar espacios"
 
+def validarNumero2Digitos(pnum, numeroMinimo, numeroMaximo):
+    """
+    Funcionamiento: Validar las entradas numericas
+    Entradas: pnum (str) número a trabajar, numeroMinimo (int) parametro que define el número minimo con el que desea trabajar
+    Salidas: (Booleano) realimentar al usuario con la corrección de posibles errores o permitir el avance del proceso.
+    """
+    if re.match("^\d+$", pnum): # Opción correcta
+        if int(pnum)>=numeroMinimo and int(pnum)<=numeroMaximo: 
+            return True
+        else:
+            print("Debe ingresar un número mayor o igual que "+str(numeroMinimo)+" y menor o igual que "+str(numeroMaximo))
+            return False
+    elif pnum.find(" ") != -1:    # Valida en caso de ingresar espacios en blanco entre los dígitos             
+        print ("No debe digitar espacios")
+        return False
+    elif pnum == "":    # Valida en caso de no ingresar ningún valor                                     
+        print("Debe ingresar un valor numérico")
+        return False
+    elif re.match("^\D+$", pnum): # Valida en caso de ingresar un valor no-numérico
+        print("El valor debe de ser un número entero")
+        return False
+    else: # Valida cualquier otro error
+        print("Valor inválido, inténtelo nuevamente")
+        return False
+
 #Funciones
 
 # 1 - Cifrado César
@@ -82,8 +107,7 @@ def procesarDecodCesar(pfrase): # Proceso de Decodificación
             posicion = alfabeto.find(pfrase[letraFrase])
             fraseCodificada+= alfabeto[posicion-3]
         letraFrase+=1
-    return "Mensaje codificado: "+fraseCodificada.lower()
-    return "Mensaje decodificado: "
+    return "Mensaje decodificado: "+fraseCodificada.lower()
     
 def obtenerCodCesar(accion):
     """
@@ -91,6 +115,7 @@ def obtenerCodCesar(accion):
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
+    frase=''
     print(f"\n_____________________________________________________________\nCifrado César - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
@@ -100,6 +125,43 @@ def obtenerCodCesar(accion):
         return menu()
     else:
         print(procesarDecodCesar(frase))
+        return menu()
+
+# 3 - Sustitución Vigenére
+def procesarCodVigenere(pfrase):
+    """
+    Funcionamiento: Codificar una frase con el método de Sustitución Vigenére
+    Entradas: pfrase(string)
+    Salidas: Resultado del proceso
+    """
+    return "Mensaje codificado: "
+
+    """
+    Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
+    Entradas: pfrase(string)
+    Salidas: Resultado del proceso
+    """
+    return "Mensaje decodificado: "
+
+def obtenerCodVigenere(accion):
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: accion (str) acción que se realizará posteriormente 
+    Salidas: Continua con el procesamiento respectivo
+    """
+    frase,cifra='',0
+    print(f"\n_____________________________________________________________\nSustitución Vigenére - ({accion})") 
+    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+    if validarFrase(frase)==False:
+        return obtenerCodVigenere(accion)
+    cifra = input("Por favor, ingrese la cifra: ")
+    if validarNumero2Digitos(cifra,10,99)==False:
+        return obtenerCodVigenere(accion)
+    if accion == "codificar":
+        print(procesarCodVigenere(frase,cifra)) 
+        return menu()
+    else:
+        print(procesarDecodVigenere(frase,cifra))
         return menu()
 
 #Funcionens de menú
@@ -162,9 +224,9 @@ def menu():
             if control == 0:
                 return menu()
             elif control == 1:
-                return #obtenerCodVigenere("codificar")
+                return obtenerCodVigenere("codificar")
             else:
-                return #obtenerDecodVigenere("decodificar")
+                return obtenerDecodVigenere("decodificar")
         elif opcion == "4":
             return menu()
         elif opcion == "5":
