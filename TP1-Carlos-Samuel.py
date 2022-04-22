@@ -8,6 +8,15 @@
 #Importacion de Librerias
 import re
 
+#Funciones
+
+#Generales
+def esPar(digito):
+    if digito % 2 == 1:
+        return False
+    else:
+        return True
+
 #Validaciones
 def validarOpcion(opcion, tope): 
     """
@@ -70,8 +79,6 @@ def validarNumero2Digitos(pnum, numeroMinimo, numeroMaximo):
         print("Valor inválido, inténtelo nuevamente")
         return False
 
-#Funciones
-
 # 1 - Cifrado César
 def procesarCodCesar(pfrase): # Proceso de Codificación
     """
@@ -128,15 +135,31 @@ def obtenerCodCesar(accion):
         return menu()
 
 # 3 - Sustitución Vigenére
-def procesarCodVigenere(pfrase,cifra):
+def procesarCodVigenere(pfrase):
     """
     Funcionamiento: Codificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    return "Mensaje codificado: "
-    
-def procesarDecodVigenere(frase,cifra):
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+    fraseCodificada, letraFrase, posicion, aux= "",0,0,1
+    while letraFrase <= len(pfrase)-1:
+        if pfrase[letraFrase] == " ":
+            fraseCodificada+= " "
+            letraFrase+=1
+            aux = 1
+        posicion = alfabeto.find(pfrase[letraFrase])
+        if esPar(aux)==False:
+            if (alfabeto.find(pfrase[letraFrase]) != -1):
+                fraseCodificada+= alfabeto[posicion+2]
+        else:
+            if (alfabeto.find(pfrase[letraFrase]) != -1):
+                fraseCodificada+= alfabeto[posicion+3]
+        letraFrase+=1
+        aux+=1
+    return "Mensaje codificado: "+fraseCodificada
+
+def procesarDecodVigenere(pfrase):
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
@@ -159,10 +182,10 @@ def obtenerCodVigenere(accion):
     if validarNumero2Digitos(cifra,10,99)==False:
         return obtenerCodVigenere(accion)
     if accion == "codificar":
-        print(procesarCodVigenere(frase,cifra)) 
+        print(procesarCodVigenere(frase)) 
         return menu()
     else:
-        print(procesarDecodVigenere(frase,cifra))
+        print(procesarDecodVigenere(frase))
         return menu()
 
 #Funcionens de menú
