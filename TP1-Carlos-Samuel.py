@@ -206,6 +206,42 @@ def obtenerCodXOR(accion):
         print(procesarDecodXOR(frase, clave))
         return menu()
 
+# 6 - Mensaje inverso
+def procesarCodMInverso(PARAMETROS): # Proceso de Codificación
+    """
+    Funcionamiento: Codificar una frase con el método de --------------
+    Entradas: ------ completar ------
+    Salidas: Resultado del proceso  
+    """
+    # Insertar proceso de CODIFICACIÓN
+    return "Mensaje codificado: "
+def procesarDecodMInverso(PARAMETROS): # Proceso de Decodificación
+    """
+    Funcionamiento: Decodificar una frase con el método de -------------
+    Entradas: ------ (str) dato con el que se trabaja.
+    Salidas: Resultado del proceso  
+    """
+    # Insertar proceso de DECODIFICACIÓN
+    return "Mensaje decodificado: "
+def obtenerCodMInverso(accion):
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: accion (str) acción que se realizará posteriormente 
+    Salidas: Continua con el procesamiento respectivo
+    """
+    print(f"\n_____________________________________________________________\nXXX título del cifrado XXX - ({accion})") 
+    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+    if validarFrase(frase)==False:
+        return obtenerCodMInverso(accion)
+    clave = input("Por favor, ingrese la clave: ").lower()
+    if validarString(clave)==False:
+        return obtenerCodMInverso(accion)
+    if accion == "codificar":
+        print(procesarCodMInverso(frase, clave)) #<-- insertar parametros dentro de los parentesis
+        return menu()
+    else:
+        print(procesarDecodMInverso(frase, clave))
+        return menu()
 
 # Funcionens de menú
 def elegirAccion(ejercicio):
