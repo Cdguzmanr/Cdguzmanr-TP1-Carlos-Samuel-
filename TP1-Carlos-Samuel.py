@@ -128,14 +128,15 @@ def obtenerCodCesar(accion):
         return menu()
 
 # 3 - Sustitución Vigenére
-def procesarCodVigenere(pfrase):
+def procesarCodVigenere(pfrase,cifra):
     """
     Funcionamiento: Codificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
     return "Mensaje codificado: "
-
+    
+def procesarDecodVigenere(frase,cifra):
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
