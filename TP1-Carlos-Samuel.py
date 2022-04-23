@@ -450,34 +450,34 @@ def procesarCodTel(pfrase):
         i=0
         for m in range(3):
             if n == n1[i]:
-                resultado+= f"20{i+1}"
+                resultado+= f"2{i+1}"
                 break
             if n == n2[i]:
-                resultado+= f"30{i+1}"   
+                resultado+= f"3{i+1}"   
                 break
             if n == n3[i]:
-                resultado+= f"40{i+1}"
+                resultado+= f"4{i+1}"
                 break
             if n == n4[i]:
-                resultado+= f"50{i+1}"
+                resultado+= f"5{i+1}"
                 break
             if n == n5[i]:
-                resultado+= f"60{i+1}"
+                resultado+= f"6{i+1}"
                 break
             if n == n6[i]:
-                resultado+= f"70{i+1}"
+                resultado+= f"7{i+1}"
                 break
             if n == n7[i]:
-                resultado+= f"80{i+1}"
+                resultado+= f"8{i+1}"
                 break
             if n == n8[i]:
-                resultado+= f"90{i+1}"
+                resultado+= f"9{i+1}"
             i+=1
         i+=1
         if n == n6[i]:
-            resultado+= f"70{i+1}"
+            resultado+= f"7{i+1}"
         if n == n8[i]:
-            resultado+= f"90{i+1}"
+            resultado+= f"9{i+1}"
 
     return f"Mensaje codificado: {resultado}"
 
