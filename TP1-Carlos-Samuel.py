@@ -444,13 +444,42 @@ def procesarCodTel(pfrase):
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    alfabeto = "abcdefghijklmnopqrstuvwxyz"
-    n2,n3,n4,n5,n6,n7,n8,n9="abc","def","ghi","jkl","mno","pqrs","tuv","wyz"
+    resultado=""
+    n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
     for n in range(len(pfrase)):
-        if n == alfabeto[0:2]:
-            print("Falta por hacer")
+        i=0
+        for m in range(3):
+            if n == n1[i]:
+                resultado+= f"20{i+1}"
+                break
+            if n == n2[i]:
+                resultado+= f"30{i+1}"   
+                break
+            if n == n3[i]:
+                resultado+= f"40{i+1}"
+                break
+            if n == n4[i]:
+                resultado+= f"50{i+1}"
+                break
+            if n == n5[i]:
+                resultado+= f"60{i+1}"
+                break
+            if n == n6[i]:
+                resultado+= f"70{i+1}"
+                break
+            if n == n7[i]:
+                resultado+= f"80{i+1}"
+                break
+            if n == n8[i]:
+                resultado+= f"90{i+1}"
+            i+=1
+        i+=1
+        if n == n6[i]:
+            resultado+= f"70{i+1}"
+        if n == n8[i]:
+            resultado+= f"90{i+1}"
 
-    return "Mensaje codificado: "
+    return f"Mensaje codificado: {resultado}"
 
 def procesarDecodTel(pfrase):
     """
@@ -470,12 +499,12 @@ def obtenerCodTelefono(accion):
     print(f"\n_____________________________________________________________\nCifrado por código telefónico - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
     if validarMInverso(frase)==False:
-        return obtenerCodMInverso(accion)
+        return obtenerCodTelefono(accion)
     if accion == "codificar":
-        print(procesarCodMInverso(frase))
+        print(procesarCodTel(frase))
         return menu()
     else:
-        print(procesarCodMInverso(frase))
+        print(procesarDecodTel(frase))
         return menu()
 
 # Funcionens de menú
