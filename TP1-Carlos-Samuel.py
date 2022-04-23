@@ -484,36 +484,131 @@ def procesarCodTel(pfrase):
         resultado+=" "
     return f"Mensaje codificado: {resultado}"
 
+
+"""
+        if n == "2":
+            boton=2
+        elif n == "3":
+            boton=3
+        elif n == "4":
+            boton=4
+        elif n == "5":
+            boton=5
+        elif n == "6":
+            boton=6
+        elif n == "7":
+            boton=7
+        elif n == "8":
+            boton=8
+        elif n == "9":
+            boton=9
+        else:
+            if  n == "*":
+                resultado+=" "
+        if esPar(i):
+            boton=""
+        i+=1
+"""
+
 def procesarDecodTel(pfrase):
     """
     Funcionamiento: Codifica y decodifica una frase con el método de Palabra inversa
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    resultado=""
+    resultado,i,boton,bandera="",0,"",False
     n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
     for n in pfrase:
-        if n == 2:
-            
-            resultado+= f"2{i}"
-        elif n == 3:
-            resultado+= f"3{i}"   
-        elif n == 4:
-            resultado+= f"4{i}"
-        elif n == 5:
-            resultado+= f"5{i}"
-        elif n == 6:
-            resultado+= f"6{i}"
-        elif n == 7:
-            resultado+= f"7{i}"
-        elif n == 8:
-            resultado+= f"8{i}"
-        elif n == 9:
-            resultado+= f"9{i}"
-        else:
-            if  n == "*":
+        if bandera==True:
+            if boton == "*":
                 resultado+=" "
+            else:
+                i=int(n)
+            if boton == "2":
+                if i==1:
+                    resultado+= "a"
+                elif i==2:
+                    resultado+= "b"
+                else:
+                    resultado+= "c"
+            elif boton == "3":
+                if i==1:
+                    resultado+= "d"
+                elif i==2:
+                    resultado+= "e"
+                else:
+                    resultado+= "f" 
+            elif boton == "4":
+                if i==1:
+                    resultado+= "g"
+                elif i==2:
+                    resultado+= "h"
+                else:
+                    resultado+= "i" 
+            elif boton == "5":
+                if i==1:
+                    resultado+= "j"
+                elif i==2:
+                    resultado+= "k"
+                else:
+                    resultado+= "l" 
+            elif boton == "6":
+                if i==1:
+                    resultado+= "m"
+                elif i==2:
+                    resultado+= "n"
+                else:
+                    resultado+= "o" 
+            elif boton == "7":
+                if i==1:
+                    resultado+= "p"
+                elif i==2:
+                    resultado+= "q"
+                elif i==3:
+                    resultado+= "r"
+                else:
+                    resultado+= "s" 
+            elif boton == "8":
+                if i==1:
+                    resultado+= "t"
+                elif i==2:
+                    resultado+= "u"
+                else:
+                    resultado+= "v" 
+            elif boton == "9":
+                if i==1:
+                    resultado+= "w"
+                elif i==2:
+                    resultado+= "x"
+                elif i==3:
+                    resultado+= "y"
+                else:
+                    resultado+= "z" 
+            else:
+                print(".")
+            bandera=False
+        if i==0:
+            if bandera==False:
+                boton=n
+            if boton!="" and boton!=" ":
+                bandera=True
+        i=0
     return f"Mensaje decodificado: {resultado}"
+
+def validarCodTel(pValidar):
+    """
+    Funcionamiento: Validar las entradas para el ejercicio
+    Entradas: pValidar (str) dato con el que se trabaja.
+    Salidas: Realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
+    """
+    if re.match("^[0-9* ]+$", pValidar):
+        return True
+    elif re.match("^[^0-9* ]+$", pValidar):   
+        print("Debe ingresar solamente valores numéricos, espacios o asteriscos")
+        return False            
+    else:
+        print("Valor inválido, por favor intentelo nuevamente")
+        return False   
 
 def obtenerCodTelefono(accion):
     """
@@ -524,12 +619,15 @@ def obtenerCodTelefono(accion):
     frase=""
     print(f"\n_____________________________________________________________\nCifrado por código telefónico - ({accion})") 
     frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
-    if validarMInverso(frase)==False:
-        return obtenerCodTelefono(accion)
+    
     if accion == "codificar":
+        if validarFrase(frase)==False:
+            return obtenerCodTelefono(accion)
         print(procesarCodTel(frase))
         return menu()
     else:
+        if validarCodTel(frase)==False:
+            return obtenerCodTelefono(accion)
         print(procesarDecodTel(frase))
         return menu()
 
@@ -540,7 +638,7 @@ def elegirAccion(ejercicio):
     Entradas: ejercicio (str) nombre del ejercicio al que pertenece la acción, accion (str) acción que desea realizar
     Salidas: resultado del proceso
     """
-    accion = input(f"___________________________\n¿Que acción desea realizar? - {ejercicio} \n1- Codificar     2- Decodificar?     0- Regresar al menú\n>>> ")
+    accion = input(f"___________________________\n¿Que acción desea realizar? - {ejercicio} \n1- Codificar     2- Decodificar     0- Regresar al menú\n>>> ")
     if validarOpcion(accion, 2):
         if accion == "0":
             return 0
