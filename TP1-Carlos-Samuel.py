@@ -1,12 +1,11 @@
 #######################################################
 #Creado por: Carlos Guzmán, Samuel Garcés
 #Fecha de creación: 4/4/2022 7:00 pm
-#Última modificación: 22/4/2022 7:55 am 
+#Última modificación: 22/4/2022 10:30 am 
 #Versión de python: 3.10.2
 #######################################################
 
 # Importación de librerias
-from ast import Try
 import re
 
 # Validación general
