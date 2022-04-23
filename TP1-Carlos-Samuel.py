@@ -391,37 +391,44 @@ def obtenerCodMInverso(accion):
         return menu()
 
 # 8 - Cifrado binario
-def procesarCodBinario(PARAMETROS): # Proceso de Codificación
+def procesarCodBinario(pfrase): # Proceso de Codificación
     """
-    Funcionamiento: Codificar una frase con el método de --------------
-    Entradas: ------ completar ------
+    Funcionamiento: Codificar una frase con el método de Cifrado binario
+    Entradas: pfrase (str) frase a trabajar
     Salidas: Resultado del proceso  
     """
-    # Insertar proceso de CODIFICACIÓN
-    return "Mensaje codificado: "
-def procesarDecodBinario(PARAMETROS): # Proceso de Decodificación
+    valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
+    alfabeto = " abcdefghijklmnopqrstuvwxyz"    
+    nuevaFrase = ' '.join((valorBinario[alfabeto.index(letra)]) for letra in pfrase)
+    return f"Mensaje codificado: {nuevaFrase}"
+def procesarDecodBinario(pfrase): # Proceso de Decodificación
     """
-    Funcionamiento: Decodificar una frase con el método de -------------
-    Entradas: ------ (str) dato con el que se trabaja.
+    Funcionamiento: Decodificar una frase con el método de 
+    Entradas: pfrase (str) frase a trabajar
     Salidas: Resultado del proceso  
     """
-    # Insertar proceso de DECODIFICACIÓN
-    return "Mensaje decodificado: "
+    valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
+    alfabeto = " abcdefghijklmnopqrstuvwxyz"    
+    nuevaFrase = ''.join((alfabeto[valorBinario.index(dato)]) for dato in pfrase)
+    return f"Mensaje decodificado: {nuevaFrase}"
 def validarCodBinario(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
-    Entradas: ---- (str) dato con el que se trabaja.
+    Entradas: pValidar (list) dato con el que se trabaja.
     Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
     """
-    # Insertar tipo de validación / puede llamar alguna opción de validación anterior de ser necesaria
-    if re.match("^[a-z ]+$", pValidar):
-        return True
-    elif re.match("^[^a-z ]+$", pValidar):   
-        print("Debe ingresar solamente valores alphabeticos")
-        return False            
-    else:
-        print("Valor inválido, por favor intentelo nuevamente")
-        return False   
+    for dato in pValidar:
+        if re.match("^[10]{5}$", dato):
+            contador = 0 #Esto solo permite que se salga del ciclo y no tenga que avanzar por los otros elif
+        elif dato == "*":
+            contador = 0
+        elif re.match("^[^10]+$", dato):   
+            print("Debe ingresar solamente datos binarios o espacios (*)")
+            return False            
+        else:
+            print("Valor inválido, por favor intentelo nuevamente")
+            return False   
+    return True
 def obtenerCodBinario(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -429,17 +436,18 @@ def obtenerCodBinario(accion):
     Salidas: Continua con el procesamiento respectivo
     """
     print(f"\n_____________________________________________________________\nCifrado binario - ({accion})") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
-    if validarFrase(frase)==False:
-        return obtenerCodBinario(accion)
-    clave = input("Por favor, ingrese la clave: ").lower()
-    if validarString(clave)==False:
-        return obtenerCodBinario(accion)
     if accion == "codificar":
-        print(procesarCodBinario(frase, clave)) #<-- insertar parametros dentro de los parentesis
-        return menu()
+        frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        if validarFrase(frase)==False:
+            return obtenerCodBinario(accion)
+        print(procesarCodBinario(frase)) #<-- insertar parametros dentro de los parentesis
+        return menu()    
     else:
-        print(procesarDecodBinario(frase, clave))
+        datos = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        frase = datos.split(" ") # Aquí se dividen los datos de la frase en una lista, para facilitar su manipulación
+        if validarCodBinario(frase)==False:
+            return obtenerCodBinario(accion)
+        print(procesarDecodBinario(frase))
         return menu()
 
 # Funcionens de menú
