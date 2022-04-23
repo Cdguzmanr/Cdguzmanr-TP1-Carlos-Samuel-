@@ -473,13 +473,12 @@ def procesarCodTel(pfrase):
             if n == n8[i]:
                 resultado+= f"9{i+1}"
             i+=1
-        i+=1
         if n == n6[i]:
             resultado+= f"7{i+1}"
         if n == n8[i]:
             resultado+= f"9{i+1}"
 
-    return f"Mensaje codificado: {resultado}"
+    return "Mensaje codificado: "+resultado
 
 def procesarDecodTel(pfrase):
     """
