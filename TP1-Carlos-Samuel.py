@@ -7,6 +7,7 @@
 
 # Importación de librerias
 import re
+from unittest import result
 
 # Validación general
 def validarString(string): # Valida que solo ingrese valores alphabéticos
@@ -446,39 +447,42 @@ def procesarCodTel(pfrase):
     """
     resultado=""
     n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
-    for n in range(len(pfrase)):
-        i=0
+    for n in pfrase:
+        i,m=1,0
         for m in range(3):
-            if n == n1[i]:
-                resultado+= f"2{i+1}"
+            if n == n1[m]:
+                resultado+= f"2{i}"
                 break
-            if n == n2[i]:
-                resultado+= f"3{i+1}"   
+            if n == n2[m]:
+                resultado+= f"3{i}"   
                 break
-            if n == n3[i]:
-                resultado+= f"4{i+1}"
+            if n == n3[m]:
+                resultado+= f"4{i}"
                 break
-            if n == n4[i]:
-                resultado+= f"5{i+1}"
+            if n == n4[m]:
+                resultado+= f"5{i}"
                 break
-            if n == n5[i]:
-                resultado+= f"6{i+1}"
+            if n == n5[m]:
+                resultado+= f"6{i}"
                 break
-            if n == n6[i]:
-                resultado+= f"7{i+1}"
+            if n == n6[m]:
+                resultado+= f"7{i}"
                 break
-            if n == n7[i]:
-                resultado+= f"8{i+1}"
+            if n == n7[m]:
+                resultado+= f"8{i}"
                 break
-            if n == n8[i]:
-                resultado+= f"9{i+1}"
+            if n == n8[m]:
+                resultado+= f"9{i}"
             i+=1
+        i,m=3,4
         if n == n6[i]:
             resultado+= f"7{i+1}"
         if n == n8[i]:
             resultado+= f"9{i+1}"
-
-    return "Mensaje codificado: "+resultado
+        if n == " ":
+            resultado+="*"
+        resultado+=" "
+    return f"Mensaje codificado: {resultado}"
 
 def procesarDecodTel(pfrase):
     """
@@ -486,7 +490,30 @@ def procesarDecodTel(pfrase):
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    return "Mensaje decodificado: "
+    resultado=""
+    n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
+    for n in pfrase:
+        if n == 2:
+            
+            resultado+= f"2{i}"
+        elif n == 3:
+            resultado+= f"3{i}"   
+        elif n == 4:
+            resultado+= f"4{i}"
+        elif n == 5:
+            resultado+= f"5{i}"
+        elif n == 6:
+            resultado+= f"6{i}"
+        elif n == 7:
+            resultado+= f"7{i}"
+        elif n == 8:
+            resultado+= f"8{i}"
+        elif n == 9:
+            resultado+= f"9{i}"
+        else:
+            if  n == "*":
+                resultado+=" "
+    return f"Mensaje decodificado: {resultado}"
 
 def obtenerCodTelefono(accion):
     """
