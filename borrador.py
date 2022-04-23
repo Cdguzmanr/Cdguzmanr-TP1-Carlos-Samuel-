@@ -25,7 +25,7 @@ def procesarCodXOR(pfrase, pclave): # Proceso de Codificación
     return f"Mensaje codificado: {repr(fraseCodificada)}"
 
 valor = "\x07"
-print(chr(ord(valor)))
+print(ord(valor))
 
 
 #print(procesarCodXOR("tarea programada", "secreto"))

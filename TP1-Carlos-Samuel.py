@@ -6,6 +6,7 @@
 #######################################################
 
 # Importación de librerias
+from ast import Try
 import re
 
 # Validación general
@@ -389,6 +390,66 @@ def obtenerCodMInverso(accion):
         print(procesarCodMInverso(frase, "decodificado"))
         return menu()
 
+# 8 - Cifrado binario
+def procesarCodBinario(pfrase): # Proceso de Codificación
+    """
+    Funcionamiento: Codificar una frase con el método de Cifrado binario
+    Entradas: pfrase (str) frase a trabajar
+    Salidas: Resultado del proceso  
+    """
+    valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
+    alfabeto = " abcdefghijklmnopqrstuvwxyz"    
+    nuevaFrase = ' '.join((valorBinario[alfabeto.index(letra)]) for letra in pfrase)
+    return f"Mensaje codificado: {nuevaFrase}"
+def procesarDecodBinario(pfrase): # Proceso de Decodificación
+    """
+    Funcionamiento: Decodificar una frase con el método de 
+    Entradas: pfrase (str) frase a trabajar
+    Salidas: Resultado del proceso  
+    """
+    valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
+    alfabeto = " abcdefghijklmnopqrstuvwxyz"    
+    nuevaFrase = ''.join((alfabeto[valorBinario.index(dato)]) for dato in pfrase)
+    return f"Mensaje decodificado: {nuevaFrase}"
+def validarCodBinario(pValidar):
+    """
+    Funcionamiento: Validar las entradas para el ejercicio
+    Entradas: pValidar (list) dato con el que se trabaja.
+    Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
+    """
+    for dato in pValidar:
+        if re.match("^[10]{5}$", dato):
+            contador = 0 #Esto solo permite que se salga del ciclo y no tenga que avanzar por los otros elif
+        elif dato == "*":
+            contador = 0
+        elif re.match("^[^10]+$", dato):   
+            print("Debe ingresar solamente datos binarios o espacios (*)")
+            return False            
+        else:
+            print("Valor inválido, por favor intentelo nuevamente")
+            return False   
+    return True
+def obtenerCodBinario(accion):
+    """
+    Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
+    Entradas: accion (str) acción que se realizará posteriormente 
+    Salidas: Continua con el procesamiento respectivo
+    """
+    print(f"\n_____________________________________________________________\nCifrado binario - ({accion})") 
+    if accion == "codificar":
+        frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        if validarFrase(frase)==False:
+            return obtenerCodBinario(accion)
+        print(procesarCodBinario(frase)) #<-- insertar parametros dentro de los parentesis
+        return menu()    
+    else:
+        datos = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        frase = datos.split(" ") # Aquí se dividen los datos de la frase en una lista, para facilitar su manipulación
+        if validarCodBinario(frase)==False:
+            return obtenerCodBinario(accion)
+        print(procesarDecodBinario(frase))
+        return menu()
+
 # Funcionens de menú
 def elegirAccion(ejercicio):
     """
@@ -425,84 +486,89 @@ def menu(): ### Menú principal
     print ("7. Cifrado telefónico ")
     print ("8. Cifrado binario ")   
     print ("0. Terminar")
-    opcion = input("Seleccione una opción: ")
-    if validarOpcion(opcion, 8)==False:  # Validación de las opciones
+    try:
+        opcion = input("Seleccione una opción: ")
+        if validarOpcion(opcion, 8)==False:  # Validación de las opciones
+            return menu()
+        elif opcion == "0":  # Finaliza el proceso
+            return "\n---Ejecución finalizada---"
+        else:   # Selecciona opciones del menú
+            if opcion == "1":
+                ejercicio = "Cifrado César"
+                control = elegirAccion(ejercicio) # llama la variable para seleccionar si codifica o decodifica
+                if control == 0:
+                    return menu()
+                elif control == 1: # Llama la variable respectiva, e indica el tipo de accion a realizar
+                    return obtenerCodCesar("codificar")
+                else:
+                    return obtenerCodCesar("decodificar")
+            elif opcion == "2": 
+                ejercicio = "Cifrado por llave"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return obtenerCodLlave("codificar")
+                else:
+                    return obtenerCodLlave("decodificar")
+            elif opcion == "3":
+                ejercicio = "Sustitución Vigenére"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return obtenerCodVigenere("codificar")
+                else:
+                    return obtenerCodVigenere("decodificar")
+            elif opcion == "4":
+                ejercicio = "Sustitución XOR y llave"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return obtenerCodXOR("codificar")
+                else:
+                    return obtenerCodXOR("decodificar")
+            elif opcion == "5":
+                ejercicio = "Palabra inversa"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return #obtenerCodPInversa("codificar")
+                else:
+                    return #obtenerCodPInversa("decodificar")
+            elif opcion == "6":
+                ejercicio = "Mensaje inverso"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return obtenerCodMInverso("codificar")
+                else:
+                    return obtenerCodMInverso("decodificar")
+            elif opcion == "7":
+                ejercicio = "Cifrado telefónico"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return #obtenerCodTelefonico("codificar")
+                else:
+                    return #obtenerCodMTelefonico("decodificar")
+            else:
+                ejercicio = "Cifrado binario"
+                control = elegirAccion(ejercicio)
+                if control == 0:
+                    return menu()
+                elif control == 1:
+                    return obtenerCodBinario("codificar")
+                else:
+                    return obtenerCodBinario("decodificar")
+    except:
+        print("\n>>> Ocurrió un error, vuelva a intentarlo") # Atrapa y corrije en caso de recibir un error desconocido
         return menu()
-    elif opcion == "0":  # Finaliza el proceso
-        return "\n---Ejecución finalizada---"
-    else:   # Selecciona opciones del menú
-        if opcion == "1":
-            ejercicio = "Cifrado César"
-            control = elegirAccion(ejercicio) # llama la variable para seleccionar si codifica o decodifica
-            if control == 0:
-                return menu()
-            elif control == 1: # Llama la variable respectiva, e indica el tipo de accion a realizar
-                return obtenerCodCesar("codificar")
-            else:
-                return obtenerCodCesar("decodificar")
-        elif opcion == "2": 
-            ejercicio = "Cifrado por llave"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return obtenerCodLlave("codificar")
-            else:
-                return obtenerCodLlave("decodificar")
-        elif opcion == "3":
-            ejercicio = "Sustitución Vigenére"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return obtenerCodVigenere("codificar")
-            else:
-                return obtenerCodVigenere("decodificar")
-        elif opcion == "4":
-            ejercicio = "Sustitución XOR y llave"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return obtenerCodXOR("codificar")
-            else:
-                return obtenerCodXOR("decodificar")
-        elif opcion == "5":
-            ejercicio = "Palabra inversa"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return #obtenerCodPInversa("codificar")
-            else:
-                return #obtenerCodPInversa("decodificar")
-        elif opcion == "6":
-            ejercicio = "Mensaje inverso"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return obtenerCodMInverso("codificar")
-            else:
-                return obtenerCodMInverso("decodificar")
-        elif opcion == "7":
-            ejercicio = "Cifrado telefónico"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return #obtenerCodTelefonico("codificar")
-            else:
-                return #obtenerCodMTelefonico("decodificar")
-        else:
-            ejercicio = "Cifrado binario"
-            control = elegirAccion(ejercicio)
-            if control == 0:
-                return menu()
-            elif control == 1:
-                return #obtenerCodBinario("codificar")
-            else:
-                return #obtenerCodBinario("decodificar")
+
 
 # Programa Principal (PP)
 print("\n--- Tarea Programada ---\n     Carlos Guzmán \n     Samuel Gárces\n________________________\n") # Encabezado
