@@ -402,7 +402,7 @@ def procesarCodMInverso(pfrase, accion): # Proceso de Codificación
     Entradas: pfrase (str) frase a trabajar, accion (str) acción que se realizará
     Salidas: Resultado del proceso  
     Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
-    Por lo tanto, unicamente diferencié la impresión del resultado, utilizando el segundo parámetro (accion)    
+    Por lo tanto, unicamente se diferenció la impresión del resultado, utilizando el segundo parámetro (accion)    
     """
     return f"Mensaje {accion}: {pfrase[::-1]}"
 def validarMInverso(pValidar):
