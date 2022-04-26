@@ -9,37 +9,35 @@
 import re
 
 # Validación general
-def validarString(string): # Valida que solo ingrese valores alphabéticos
+def validarString(string): # Valida que solo se ingrese una palabra, con formato de valores alphabéticos 
     """
     Funcionamiento: Validar las entradas afabéticas
     Entradas: string (str) dato a trabajar
     Salidas: (Booleano) realimentar al usuario con la corrección de posibles errores o permitir el avance del proceso.
     """
-    if re.match("^[a-z]+$", string):
+    if re.match("^[a-zA-Z]+$", string):
         return True
-    elif re.match("^[^a-z]+$", string):   
+    elif re.match("^[^a-zA-Z]+$", string):   
         print("Debe ingresar solamente valores alphabeticos")
         return False            
     else:
         print("Valor inválido, por favor intentelo nuevamente")
         return False   
-
-def validarFrase(pValidar):
+def validarFrase(pValidar): # A diferencia de la anterior, esta validación admite espacios en blanco, permitiendo formar frases largas
     """
     Funcionamiento: Validar las entradas para el ejercicio
     Entradas: pstringValidar (str) dato con el que se trabaja.
     Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
     """
-    if re.match("^[a-z ]+$", pValidar):
+    if re.match("^[a-zA-Z ]+$", pValidar):
         return True
-    elif re.match("^[^a-z ]+$", pValidar):   
+    elif re.match("^[^a-zA-Z ]+$", pValidar):   
         print("Debe ingresar solamente valores alphabeticos o espacios")
         return False            
     else:
         print("Valor inválido, por favor intentelo nuevamente")
         return False   
-
-def validarOpcion(opcion, tope): 
+def validarOpcion(opcion, tope): # Esta función permite validar las opciones en un menú de selección numérica
     """
     Funcionamiento: Validar las entradas del menú
     Entradas: opcion (str) dato a trabajar, tope (int) valor mayor de las opciones seleccionables
@@ -53,8 +51,7 @@ def validarOpcion(opcion, tope):
     else: 
         print("Debe ingresar una opción valida")
         return False        
-
-def validarNumero(pnum, numeroMinimo):
+def validarNumero(pnum, numeroMinimo): # Permite validar unicamente valores numéricos mayores a un número definido, y con máximo infinito
     """
     Funcionamiento: Validar las entradas numericas
     Entradas: pnum (str) número a trabajar, numeroMinimo (int) parametro que define el número minimo con el que desea trabajar
@@ -78,8 +75,7 @@ def validarNumero(pnum, numeroMinimo):
     else: # Valida cualquier otro error
         print("Valor inválido, inténtelo nuevamente")
         return False
-
-def validarNumero2Digitos(pnum, numeroMinimo, numeroMaximo):
+def validarNumero2Digitos(pnum, numeroMinimo, numeroMaximo): # Permite validar valores numéricos mayores a un número definido, y con máximo definido
     """
     Funcionamiento: Validar las entradas numericas
     Entradas: pnum (str) número a trabajar, numeroMinimo (int) parametro que define el número minimo con el que desea trabajar
@@ -106,18 +102,11 @@ def validarNumero2Digitos(pnum, numeroMinimo, numeroMaximo):
 
     ### Definición de Funciones ###
 
-# Funciones generales
-def esPar(digito):
-    if digito % 2 == 1:
-        return False
-    else:
-        return True
-
 # 1 - Cifrado César
 def procesarCodCesar(pfrase): # Proceso de Codificación
     """
     Funcionamiento: Codificar una frase con el método de Cifrado César
-    Entradas: pfrase(string)
+    Entradas: pfrase (string) frase a codificar
     Salidas: Resultado del proceso  
     """
     alfabeto = "abcdefghijklmnopqrstuvwxyz"
@@ -134,7 +123,7 @@ def procesarCodCesar(pfrase): # Proceso de Codificación
 def procesarDecodCesar(pfrase): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de Cifrado César
-    Entradas: pfrase(string)
+    Entradas: pfrase (string) frase a decodificar
     Salidas: Resultado del proceso  
     """
     alfabeto = "abcdefghijklmnopqrstuvwxyz"
@@ -175,19 +164,22 @@ def procesarCodLlave(pfrase, pclave): # Proceso de Codificación
     alfabeto = "abcdefghijklmnopqrstuvwxyz"  # Variable utilizada para definir los valores de las letras
     fraseCodificada, letraClave, letraFrase = "", 0, 0
     while letraClave <= len(pclave)-1:
-        if pfrase[letraFrase] == " ":
+        if pfrase[letraFrase] == " ": # De encontrarse, añade el espacio y continúa con la siguiente letra
             fraseCodificada+= " "
             letraFrase+=1
-        resultado = (alfabeto.index(pfrase[letraFrase])+1)+(alfabeto.index(pclave[letraClave])+1)
-        letraClave+=1
-        letraFrase+=1
+        # Este es el procesamiento principal. 
+        resultado = (alfabeto.index(pfrase[letraFrase])+1)+(alfabeto.index(pclave[letraClave])+1) # Suma el valor respectivo a las letras
         if resultado > 26:
-            fraseCodificada += (alfabeto[resultado-27])
+            fraseCodificada += (alfabeto[resultado-27]) # Concatena la letra respectiva al valor de la suma anterior
         else:
             fraseCodificada+= (alfabeto[resultado-1])
-        if letraFrase == len(pfrase):
+        # Continúa el avance a traves de la frase y la clave.
+        # Esta estructura lógica se repetira en multiples ajercicios a lo largo del código.
+        letraClave+=1
+        letraFrase+=1        
+        if letraFrase == len(pfrase): # Si se ha completado el analisis de toda la frase, se cierra el ciclo
             break
-        if letraClave == len(pclave):
+        if letraClave == len(pclave): # Se reinicia el ciclo hasta que se cumpla el requisito anterior
             letraClave = 0
     return "Mensaje codificado: "+fraseCodificada
 def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
@@ -199,16 +191,16 @@ def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
     alfabeto = "abcdefghijklmnopqrstuvwxyz"  # Variable utilizada para definir los valores de las letras
     fraseCodificada, letraClave, letraFrase = "", 0, 0
     while letraClave <= len(pclave)-1:
-        if pfrase[letraFrase] == " ": # Actúa en caso de encontrar un espacio
+        if pfrase[letraFrase] == " ":
             fraseCodificada+= " "
             letraFrase+=1
         resultado = (alfabeto.index(pfrase[letraFrase])+1)-(alfabeto.index(pclave[letraClave])+1) # 
-        letraClave+=1
-        letraFrase+=1
         if resultado > 26:
             fraseCodificada += (alfabeto[resultado-27])
         else:
             fraseCodificada+= (alfabeto[resultado-1])
+        letraClave+=1
+        letraFrase+=1            
         if letraFrase == len(pfrase):
             break
         if letraClave == len(pclave):
@@ -235,52 +227,54 @@ def obtenerCodLlave(accion):
         return menu()
 
 # 3 - Sustitución Vigenére
-def procesarCodVigenere(pfrase):
+def procesarCodVigenere(pfrase, pcifra):
     """
     Funcionamiento: Codificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    alfabeto = "abcdefghijklmnopqrstuvwxyz"
-    fraseCodificada, letraFrase, posicion, aux= "",0,0,1
-    while letraFrase <= len(pfrase)-1:
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"  # Variable utilizada para definir los valores de las letras
+    fraseCodificada, datoCifra, letraFrase = "", 0, 0
+    while datoCifra < len(pcifra):
         if pfrase[letraFrase] == " ":
             fraseCodificada+= " "
             letraFrase+=1
-            aux = 1
-        posicion = alfabeto.find(pfrase[letraFrase])
-        if esPar(aux)==False:
-            if (alfabeto.find(pfrase[letraFrase]) != -1):
-                fraseCodificada+= alfabeto[posicion+2]
-        else:
-            if (alfabeto.find(pfrase[letraFrase]) != -1):
-                fraseCodificada+= alfabeto[posicion+3]
+        resultado = (alfabeto.index(pfrase[letraFrase])+1)+(int(pcifra[datoCifra]))
         letraFrase+=1
-        aux+=1
+        datoCifra+=1
+        if resultado > 26:
+            fraseCodificada += (alfabeto[resultado-27])
+        else:
+            fraseCodificada+= (alfabeto[resultado-1])
+        if letraFrase == len(pfrase): # Esto permite finalizar el proceso una vez se termine de analizar toda la frace
+            break
+        if datoCifra == 2:
+            datoCifra = 0
     return "Mensaje codificado: "+fraseCodificada
-def procesarDecodVigenere(pfrase):
+def procesarDecodVigenere(pfrase, pcifra):
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    alfabeto = "abcdefghijklmnopqrstuvwxyz"
-    fraseCodificada, letraFrase, posicion, aux= "",0,0,1
-    while letraFrase <= len(pfrase)-1:
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"  # Variable utilizada para definir los valores de las letras
+    fraseCodificada, datoCifra, letraFrase = "", 0, 0
+    while datoCifra < len(pcifra):
         if pfrase[letraFrase] == " ":
             fraseCodificada+= " "
             letraFrase+=1
-            aux = 1
-        posicion = alfabeto.find(pfrase[letraFrase])
-        if esPar(aux)==False:
-            if (alfabeto.find(pfrase[letraFrase]) != -1):
-                fraseCodificada+= alfabeto[posicion-2]
-        else:
-            if (alfabeto.find(pfrase[letraFrase]) != -1):
-                fraseCodificada+= alfabeto[posicion-3]
+        resultado = (alfabeto.index(pfrase[letraFrase])+1)-(int(pcifra[datoCifra]))
         letraFrase+=1
-        aux+=1
-    return "Mensaje decodificado: "+fraseCodificada
+        datoCifra+=1
+        if resultado > 26:
+            fraseCodificada += (alfabeto[resultado-27])
+        else:
+            fraseCodificada+= (alfabeto[resultado-1])
+        if letraFrase == len(pfrase): # Esto permite finalizar el proceso una vez se termine de analizar toda la frace
+            break
+        if datoCifra == 2: # Esto permite reiniciar el ciclo cuando se avance a traves de toda la cifra
+            datoCifra = 0
+    return "Mensaje codificado: "+fraseCodificada
 def obtenerCodVigenere(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -296,10 +290,10 @@ def obtenerCodVigenere(accion):
     if validarNumero2Digitos(cifra,10,99)==False:
         return obtenerCodVigenere(accion)
     if accion == "codificar":
-        print(procesarCodVigenere(frase)) 
+        print(procesarCodVigenere(frase, cifra)) 
         return menu()
     else:
-        print(procesarDecodVigenere(frase))
+        print(procesarDecodVigenere(frase, cifra))
         return menu()
 
 # 4 - Sustitución XOR y llave
@@ -307,27 +301,37 @@ def procesarCodXOR(pfrase, pclave): # Proceso de Codificación
     """
     Funcionamiento: Codificar una frase con el método de Sustitución XOR y llave
     Entradas: pfrase (str) frase a trabajar, pclave (str) clave utilizada
-    Salidas: Resultado del proceso  
+    Salidas: Resultado del proceso 
+    #__________________________________________________________________________#
+    NOTA: Dado a los requisitos extraordinarios solicitados a través de Telegram, 
+    se incluyó la función de solicitar la decodificación directamente desde aquí.
+    Se deshabilitó la consulta de 
     """
-    fraseCodificada, letraClave, letraFrase = "", 0, 0 # Definición de variables
-    while letraClave < len(pclave):
-        valor = chr(ord(pfrase[letraFrase])^ord(pclave[letraClave])) #Define el caracter del XOR entre las letras que se trabajan
-        fraseCodificada+=valor 
-        letraClave+=1 # Sigue avanzando por las palabras
-        letraFrase+=1
-        if letraFrase == len(pfrase):
-            break
-        if letraClave == len(pclave):
-            letraClave = 0
-    return f"Mensaje codificado: {repr(fraseCodificada)}"
+    fraseCodificada, letraClave, listaValores = "", 0, [] # Definición de variables
+    for valor in pfrase:
+        fraseCodificada+=''.join(chr(ord(valor)^ord(pclave[letraClave])))
+        listaValores+=[chr(ord(valor)^ord(pclave[letraClave]))]
+        letraClave+=1
+        if letraClave == len(pclave): # Esto permite reiniciar el ciclo cuando se avance a traves de toda la clave
+            letraClave = 0        
+    print(f"Mensaje codificado: {repr(fraseCodificada)}")   
+    if input("\n¿Desea decodificar este mensaje?\n1 -Sí    2 -No\n>>> ") == "1": print(procesarDecodXOR(listaValores, pclave))
+    return menu()
 def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución XOR y llave
     Entradas: pfrase (str) frase a trabajar, pclave (str) clave utilizada
     Salidas: Resultado del proceso  
     """
-    # Insertar proceso de DECODIFICACIÓN
-    return "Mensaje decodificado: "
+    print(f"\n_____________________________________________________________\nSustitución XOR y llave - (decodificar)\n")    
+    print(f"Datos a trabajar: {pfrase}\nClave asignada: {pclave}") # Aquí se indican los valores con los que trabaja la decodificación, como se especifíca en la solicitud extraordinaria de Telegram
+    fraseDecodificada, letraClave = "", 0 # Definición de variables
+    for valor in pfrase:
+        fraseDecodificada+=''.join(chr(ord(valor)^ord(pclave[letraClave])))
+        letraClave+=1
+        if letraClave >= len(pclave):
+            letraClave = 0        
+    return f"Mensaje decodificado: {fraseDecodificada}"
 def obtenerCodXOR(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -341,13 +345,9 @@ def obtenerCodXOR(accion):
     clave = input("Por favor, ingrese la clave: ").lower()
     if validarString(clave)==False:
         return obtenerCodXOR(accion)
-    if accion == "codificar":
-        print(procesarCodXOR(frase, clave))
-        return menu()
-    else:
-        print(procesarDecodXOR(frase, clave))
-        return menu()
-
+    print(procesarCodXOR(frase, clave))    
+    return menu()
+    
 # 5 - Palabra inversa
 def procesarCodPalabraInver(pfrase, accion):
     """
@@ -363,20 +363,6 @@ def procesarCodPalabraInver(pfrase, accion):
         inversa+=" "
         i-=1
     return f"Mensaje {accion}: {inversa}"
-def validarMInverso(pValidar):
-    """
-    Funcionamiento: Validar las entradas para el ejercicio
-    Entradas: pstringValidar (str) dato con el que se trabaja.
-    Salidas: realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
-    """
-    if re.match("^[a-zA-Z ]+$", pValidar):
-        return True
-    elif re.match("^[^a-zA-Z ]+$", pValidar):   
-        print("Debe ingresar solamente valores alphabeticos o espacios")
-        return False            
-    else:
-        print("Valor inválido, por favor intentelo nuevamente")
-        return False   
 def obtenerCodPalabraInver(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -385,8 +371,8 @@ def obtenerCodPalabraInver(accion):
     """
     frase=""
     print(f"\n_____________________________________________________________\nPalabra inversa - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
-    if validarMInverso(frase)==False:
+    frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
+    if validarFrase(frase)==False:
         return obtenerCodPalabraInver(accion)
     if accion == "codificar":
         print(procesarCodPalabraInver(frase, "codificado"))
@@ -404,7 +390,7 @@ def procesarCodMInverso(pfrase, accion): # Proceso de Codificación
     Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
     Por lo tanto, unicamente se diferenció la impresión del resultado, utilizando el segundo parámetro (accion)    
     """
-    return f"Mensaje {accion}: {pfrase[::-1]}"
+    return f"Mensaje {accion}: {pfrase[::-1]}" # El método [::-1] permite imprimir el valor de la función de atras hacia adelante, saltando en -1
 def validarMInverso(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
@@ -445,6 +431,7 @@ def procesarCodTel(pfrase):
     """
     resultado=""
     n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
+    
     for n in pfrase:
         i,m=1,0
         for m in range(3):
@@ -487,98 +474,47 @@ def procesarDecodTel(pfrase):
     Entradas: pfrase(string)
     Salidas: Resultado del proceso
     """
-    resultado,i,boton,bandera="",0,"",False
-    n1,n2,n3,n4,n5,n6,n7,n8 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
-    for n in pfrase:
-        if bandera==True:
-            if boton == "*":
-                resultado+=" "
-            else:
-                i=int(n)
-            if boton == "2":
-                if i==1:
-                    resultado+= "a"
-                elif i==2:
-                    resultado+= "b"
-                else:
-                    resultado+= "c"
-            elif boton == "3":
-                if i==1:
-                    resultado+= "d"
-                elif i==2:
-                    resultado+= "e"
-                else:
-                    resultado+= "f" 
-            elif boton == "4":
-                if i==1:
-                    resultado+= "g"
-                elif i==2:
-                    resultado+= "h"
-                else:
-                    resultado+= "i" 
-            elif boton == "5":
-                if i==1:
-                    resultado+= "j"
-                elif i==2:
-                    resultado+= "k"
-                else:
-                    resultado+= "l" 
-            elif boton == "6":
-                if i==1:
-                    resultado+= "m"
-                elif i==2:
-                    resultado+= "n"
-                else:
-                    resultado+= "o" 
-            elif boton == "7":
-                if i==1:
-                    resultado+= "p"
-                elif i==2:
-                    resultado+= "q"
-                elif i==3:
-                    resultado+= "r"
-                else:
-                    resultado+= "s" 
-            elif boton == "8":
-                if i==1:
-                    resultado+= "t"
-                elif i==2:
-                    resultado+= "u"
-                else:
-                    resultado+= "v" 
-            elif boton == "9":
-                if i==1:
-                    resultado+= "w"
-                elif i==2:
-                    resultado+= "x"
-                elif i==3:
-                    resultado+= "y"
-                else:
-                    resultado+= "z" 
-            else:
-                cosa = 0 # Esto solo permite terminar el proceso y evitar errores
-            bandera=False
-        if i==0:
-            if bandera==False:
-                boton=n
-            if boton!="" and boton!=" ":
-                bandera=True
-        i=0
-    return f"Mensaje decodificado: {resultado}"
+    n2,n3,n4,n5,n6,n7,n8,n9 = ["a","b","c"],["d","e","f"],["g","h","i"],["j","k","l"],["m","n","o"],["p","q","r","s"],["t","u","v"],["w","x","y","z"]
+    nuevaFrase = ""
+    for valor in pfrase:
+        digito = valor[0]
+        if digito == "*":
+            nuevaFrase += ''.join(" ")
+        elif digito == "2":
+            nuevaFrase += ''.join(n2[int(valor[1])-1]) # Añade a la frase el valor respectivo al numero que ingresó
+        elif digito == "3": 
+            nuevaFrase += ''.join(n3[int(valor[1])-1])
+        elif digito == "4": 
+            nuevaFrase += ''.join(n4[int(valor[1])-1])     
+        elif digito == "5": 
+            nuevaFrase += ''.join(n5[int(valor[1])-1])     
+        elif digito == "6":
+            nuevaFrase += ''.join(n6[int(valor[1])-1])
+        elif digito == "7": 
+            nuevaFrase += ''.join(n7[int(valor[1])-1])
+        elif digito == "8": 
+            nuevaFrase += ''.join(n8[int(valor[1])-1])     
+        else: 
+            nuevaFrase += ''.join(n9[int(valor[1])-1])               
+    return f"Mensaje decodificado: {nuevaFrase}"
 def validarCodTel(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
     Entradas: pValidar (str) dato con el que se trabaja.
     Salidas: Realimentar al usuario con la corrección de posibles errores o emitir el resultado correcto 
     """
-    if re.match("^[0-9* ]+$", pValidar):
-        return True
-    elif re.match("^[^0-9* ]+$", pValidar):   
-        print("Debe ingresar solamente valores numéricos, espacios o asteriscos")
-        return False            
-    else:
-        print("Valor inválido, por favor intentelo nuevamente")
-        return False   
+    for digito in pValidar: # Se mueve a traves de la lista y valida sus valores
+        if re.match("^[2-9]{1}[0-4]{1}$", digito): # Se asegura que cumpla el formato correcto
+            valido = 0 # Aquí solo permite que se salga del ciclo en caso de estar correcto, y continúe con el siguiente valor
+        elif digito == "*":
+            valido = 0
+        elif re.match("^[^0-9* ]+$", digito):   
+            print("Debe ingresar solamente valores numéricos, espacios o asteriscos")
+            return False            
+        else:
+            print("Valor inválido, por favor intentelo nuevamente")
+            return False   
+    return True
 def obtenerCodTelefono(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -595,9 +531,10 @@ def obtenerCodTelefono(accion):
         return menu()
     else:
         frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
-        if validarCodTel(frase)==False:
+        numeros = frase.split()        
+        if validarCodTel(numeros)==False:
             return obtenerCodTelefono(accion)
-        print(procesarDecodTel(frase))
+        print(procesarDecodTel(numeros))
         return menu()
 
 # 8 - Cifrado binario
@@ -732,13 +669,7 @@ def menu(): ### Menú principal
                     return obtenerCodVigenere("decodificar")
             elif opcion == "4":
                 ejercicio = "Sustitución XOR y llave"
-                control = elegirAccion(ejercicio)
-                if control == 0:
-                    return menu()
-                elif control == 1:
-                    return obtenerCodXOR("codificar")
-                else:
-                    return obtenerCodXOR("decodificar")
+                return obtenerCodXOR("codificar")
             elif opcion == "5":
                 ejercicio = "Palabra inversa"
                 control = elegirAccion(ejercicio)
@@ -778,7 +709,6 @@ def menu(): ### Menú principal
     except:
         print("\n>>> Ocurrió un error, vuelva a intentarlo") # Atrapa y corrije en caso de recibir un error desconocido
         return menu()
-
 
 # Programa Principal (PP)
 print("\n--- Tarea Programada ---\n     Carlos Guzmán \n     Samuel Gárces\n________________________\n") # Encabezado
