@@ -4,7 +4,7 @@
 #Última modificación: 26/4/2022 8:00 pm 
 #Versión de python: 3.10.2
 #######################################################
-
+    
 # Importación de librerias
 import re
 
@@ -94,7 +94,7 @@ def procesarCodCesar(pfrase): # Proceso de Codificación
         if (alfabeto.find(pfrase[letraFrase]) != -1):   # Si se encuentra el valor a trabajar dentro del string,
             fraseCodificada+= alfabeto[alfabeto.find(pfrase[letraFrase])+3] #  se procede a concatenar su valor respectivo
         letraFrase+=1
-    return "Mensaje codificado: "+fraseCodificada.upper()
+    return f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {fraseCodificada.upper()}  \n╚══════════════════════════════════╝"
 def procesarDecodCesar(pfrase): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de Cifrado César
@@ -111,15 +111,17 @@ def procesarDecodCesar(pfrase): # Proceso de Decodificación
             posicion = alfabeto.find(pfrase[letraFrase])
             fraseCodificada+= alfabeto[posicion-3]
         letraFrase+=1
-    return "Mensaje decodificado: "+fraseCodificada.lower()
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {fraseCodificada.lower()}  \n╚════════════════════════════════════╝"
 def obtenerCodCesar(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    print(f"\n_____________________________________________________________\nCifrado César - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+    print("\n╔══════════════════════════════════════════╗")
+    print(f"       🔐 CIFRADO CÉSAR - ({accion.upper()})      ")
+    print("╚══════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion.lower()}: ").lower()
     if validarFrase(frase)==False:
         return obtenerCodCesar(accion)
     if accion == "codificar":
@@ -156,7 +158,7 @@ def procesarCodLlave(pfrase, pclave): # Proceso de Codificación
             break
         if letraClave == len(pclave): # Se reinicia el ciclo hasta que se cumpla el requisito anterior
             letraClave = 0
-    return "Mensaje codificado: "+fraseCodificada   # Impresión del mensaje
+    return f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {fraseCodificada}  \n╚══════════════════════════════════╝"
 def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de llave
@@ -180,18 +182,23 @@ def procesarDecodLlave(pfrase, pclave): # Proceso de Decodificación
             break
         if letraClave == len(pclave):
             letraClave = 0
-    return "Mensaje decodificado: "+fraseCodificada
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {fraseCodificada}  \n╚════════════════════════════════════╝"
 def obtenerCodLlave(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    print(f"\n_____________________________________________________________\nCifrado por llave - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower() # En este y demás casos, se trabajan los datos con minúsculas, 
-    if validarFrase(frase)==False:                                             # para evitar así inconsistencias a la hora de procesar los datos
+    print("\n╔═════════════════════════════════════════╗")
+    print(f"    🔑 CIFRADO POR LLAVE - ({accion.upper()})   ")
+    print("╚═════════════════════════════════════════╝\n")
+
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion.lower()}: ").lower()
+    # En este y demás casos, se trabajan los datos con minúsculas, para evitar así inconsistencias a la hora de procesar los datos  
+    
+    if validarFrase(frase)==False:                                             
         return obtenerCodLlave(accion)  
-    clave = input("Por favor, ingrese la clave: ").lower()
+    clave = input("🔐 Por favor, ingrese la clave: ").lower()
     if validarString(clave)==False:
         return obtenerCodLlave(accion)
     if accion == "codificar":
@@ -225,7 +232,7 @@ def procesarCodVigenere(pfrase, pcifra):
             break
         if datoCifra == 2:
             datoCifra = 0
-    return "Mensaje codificado: "+fraseCodificada
+    return f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {fraseCodificada}  \n╚══════════════════════════════════╝"
 def procesarDecodVigenere(pfrase, pcifra):
     """
     Funcionamiento: Decodificar una frase con el método de Sustitución Vigenére
@@ -249,7 +256,7 @@ def procesarDecodVigenere(pfrase, pcifra):
             break
         if datoCifra == 2: # Esto permite reiniciar el ciclo cuando se avance a traves de toda la cifra
             datoCifra = 0
-    return "Mensaje codificado: "+fraseCodificada
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {fraseCodificada}  \n╚════════════════════════════════════╝"
 def obtenerCodVigenere(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -257,11 +264,14 @@ def obtenerCodVigenere(accion):
     Salidas: Continua con el procesamiento respectivo
     """
     frase,cifra='',0
-    print(f"\n_____________________________________________________________\nSustitución Vigenére - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower() 
+    print("\n╔══════════════════════════════════════════════════╗")
+    print(f"    🔑 SUSTITUCION VIGENERE - ({accion.upper()})   ")
+    print("╚══════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
         return obtenerCodVigenere(accion)
-    cifra = input("Por favor, ingrese la cifra: ")
+    print("Por favor, ingrese una cifra de 2 digitos (10-99)")
+    cifra = input(">>> ")
     if validarNumero(cifra,10,99)==False:
         return obtenerCodVigenere(accion)
     if accion == "codificar":
@@ -289,8 +299,16 @@ def procesarCodXOR(pfrase, pclave): # Proceso de Codificación
         letraClave+=1
         if letraClave == len(pclave): # Esto permite reiniciar el ciclo cuando se avance a traves de toda la clave
             letraClave = 0        
-    print(f"Mensaje codificado: {repr(fraseCodificada)}")   
-    if input("\n¿Desea decodificar este mensaje?\n1 -Sí    2 -No\n>>> ") == "1": print(procesarDecodXOR(listaValores, pclave))
+    print(f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {repr(fraseCodificada)}  \n╚══════════════════════════════════╝" ) 
+
+    print("\n╔══════════════════════════════════╗")
+    print("║  ❓ ¿DESEA DECODIFICAR ESTE MENSAJE?  ║")
+    print("╠══════════════════════════════════╣")
+    print("║  1️⃣  Sí                           ║")
+    print("║  2️⃣  No                           ║")
+    print("╚══════════════════════════════════╝")
+    if input(">>> ") == "1":
+        print(procesarDecodXOR(listaValores, pclave))
     return menu()
 def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     """
@@ -298,26 +316,34 @@ def procesarDecodXOR(pfrase, pclave): # Proceso de Decodificación
     Entradas: pfrase (str) frase a trabajar, pclave (str) clave utilizada
     Salidas: Resultado del proceso  
     """
-    print(f"\n_____________________________________________________________\nSustitución XOR y llave - (decodificar)\n")    
-    print(f"Datos a trabajar: {pfrase}\nClave asignada: {pclave}") # Aquí se indican los valores con los que trabaja la decodificación, como se especifíca en la solicitud extraordinaria de Telegram
+    print("\n╔══════════════════════════════════╗")
+    print("║  🔑 SUSTITUCIÓN XOR Y LLAVE  🔑  ║")
+    print("║         (DECODIFICAR)           ║")
+    print("╚══════════════════════════════════╝\n")
+    print(f"📌 Datos a trabajar: {pfrase}")
+    print(f"🔑 Clave asignada: {pclave}\n")
+    # Aquí se indican los valores con los que trabaja la decodificación, como se especifíca en la solicitud extraordinaria de Telegram
+
     fraseDecodificada, letraClave = "", 0 # Definición de variables
     for valor in pfrase:
         fraseDecodificada+=''.join(chr(ord(valor)^ord(pclave[letraClave])))
         letraClave+=1
         if letraClave >= len(pclave):
             letraClave = 0        
-    return f"Mensaje decodificado: {fraseDecodificada}"
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {fraseDecodificada}  \n╚════════════════════════════════════╝"
 def obtenerCodXOR(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    print(f"\n_____________________________________________________________\nSustitución XOR y llave - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+    print("\n╔═══════════════════════════════════════════════════════╗")
+    print(f"    🔑 Sustitución XOR y llave - ({accion.upper()})   ")
+    print("╚═══════════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ").lower()
     if validarFrase(frase)==False:
         return obtenerCodXOR(accion)
-    clave = input("Por favor, ingrese la clave: ").lower()
+    clave = input("🔐 Por favor, ingrese la clave: ").lower()
     if validarString(clave)==False:
         return obtenerCodXOR(accion)
     print(procesarCodXOR(frase, clave))    
@@ -333,14 +359,11 @@ def procesarCodPalabraInver(pfrase, accion):
     Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
     Por lo tanto, unicamente se diferenció la impresión del resultado, utilizando el segundo parámetro (accion)        
     """
-    palabra,inversa=[],""
-    palabra = pfrase[::-1].split(" ")
-    i=-1
-    for n in range(len(palabra)):
-        inversa+= palabra[i]
-        inversa+=" "
-        i-=1
-    return f"Mensaje {accion}: {inversa}"
+    inversa=""
+    palabras = pfrase.split(" ")
+    for palabra in palabras:
+        inversa += palabra[::-1] + " "
+    return f"\n🔐 MENSAJE {accion.upper()} 🔐\n╔══════════════════════════════════╗\n  {inversa}  \n╚══════════════════════════════════╝"
 def obtenerCodPalabraInver(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
@@ -348,8 +371,10 @@ def obtenerCodPalabraInver(accion):
     Salidas: Continua con el procesamiento respectivo
     """
     frase=""
-    print(f"\n_____________________________________________________________\nPalabra inversa - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
+    print("\n╔════════════════════════════════════════════════╗")
+    print(f"    🔑 PALABRA INVERSA - ({accion.upper()})   ")
+    print("╚════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ")
     if validarFrase(frase)==False:
         return obtenerCodPalabraInver(accion)
     if accion == "codificar":
@@ -369,15 +394,18 @@ def procesarCodMInverso(pfrase, accion): # Proceso de Codificación
     Comentario adicional: Este método es muy sencillo, la codificación y decodificación utilizan el mismo proceso.
     Por lo tanto, unicamente se diferenció la impresión del resultado, utilizando el segundo parámetro (accion)    
     """
-    return f"Mensaje {accion}: {pfrase[::-1]}" # El método [::-1] permite imprimir el valor de la función de atras hacia adelante, saltando en -1
-def obtenerCodMInverso(accion):                # O sea, se le da vuelta al valor
+    return f"\n🔐 MENSAJE {accion.upper()} 🔐\n╔══════════════════════════════════╗\n  {pfrase[::-1]}  \n╚══════════════════════════════════╝" 
+    # El método [::-1] permite imprimir el valor de la función de atras hacia adelante, saltando en -1. O sea, se le da vuelta al valor
+def obtenerCodMInverso(accion):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    print(f"\n_____________________________________________________________\nMensaje inverso - ({accion})\n") 
-    frase = input(f"Por favor, ingrese la frase que desea {accion}: ") # En este caso, las mayusculas no influyen en el procesamiento de los datos
+    print("\n╔══════════════════════════════════════════════════╗")
+    print(f"    🔑 MENSAJE INVERSO - ({accion.upper()})   ")
+    print("╚══════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ")# En este caso, las mayusculas no influyen en el procesamiento de los datos
     if validarFrase(frase)==False:
         return obtenerCodMInverso(accion)
     if accion == "codificar":
@@ -416,7 +444,7 @@ def procesarCodTel(pfrase):
         else:
             resultado+="*"
         resultado+=" "       
-    return f"Mensaje codificado: {resultado}"
+    return f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {resultado}  \n╚══════════════════════════════════╝"
 def procesarDecodTel(pfrase):
     """
     Funcionamiento: Codifica y decodifica una frase con el método de Palabra inversa
@@ -445,7 +473,7 @@ def procesarDecodTel(pfrase):
             nuevaFrase += ''.join(n8[int(valor[1])-1])     
         else: 
             nuevaFrase += ''.join(n9[int(valor[1])-1])               
-    return f"Mensaje decodificado: {nuevaFrase}"
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {nuevaFrase}  \n╚════════════════════════════════════╝"
 def validarDecodTel(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
@@ -471,15 +499,18 @@ def obtenerCodTelefono(accion):
     Salidas: Continua con el procesamiento respectivo
     """
     frase=""
-    print(f"\n_____________________________________________________________\nCifrado por código telefónico - ({accion})\n") 
+    print("\n╔══════════════════════════════════════════════════════════╗")
+    print(f"    🔑 CIFRADO POR CODIGO TELEFONICO - ({accion.upper()})   ")
+    print("╚══════════════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ").lower()
+    
     if accion == "codificar":
-        frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
+        frase.lower()
         if validarFrase(frase)==False:
             return obtenerCodTelefono(accion)
         print(procesarCodTel(frase))
         return menu()
     else:
-        frase = input(f"Por favor, ingrese la frase que desea {accion}: ")
         numeros = frase.split()        
         if validarDecodTel(numeros)==False:
             return obtenerCodTelefono(accion)
@@ -496,7 +527,7 @@ def procesarCodBinario(pfrase): # Proceso de Codificación
     valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
     alfabeto = " abcdefghijklmnopqrstuvwxyz"    
     nuevaFrase = ' '.join((valorBinario[alfabeto.index(letra)]) for letra in pfrase)
-    return f"Mensaje codificado: {nuevaFrase}"
+    return f"\n🔐 MENSAJE CODIFICADO 🔐\n╔══════════════════════════════════╗\n  {nuevaFrase}  \n╚══════════════════════════════════╝"
 def procesarDecodBinario(pfrase): # Proceso de Decodificación
     """
     Funcionamiento: Decodificar una frase con el método de 
@@ -506,7 +537,7 @@ def procesarDecodBinario(pfrase): # Proceso de Decodificación
     valorBinario = ["*", "00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000", "01001", "01010", "01011", "01100", "01101", "01110", "01111", "10000", "10001", "10010", "10011", "10100", "10101", "10110", "10111", "11000", "11001" ]
     alfabeto = " abcdefghijklmnopqrstuvwxyz"    
     nuevaFrase = ''.join((alfabeto[valorBinario.index(dato)]) for dato in pfrase)
-    return f"Mensaje decodificado: {nuevaFrase}"
+    return f"\n🔐 MENSAJE DECODIFICADO 🔐\n╔════════════════════════════════════╗\n  {nuevaFrase}  \n╚════════════════════════════════════╝"
 def validarCodBinario(pValidar):
     """
     Funcionamiento: Validar las entradas para el ejercicio
@@ -531,29 +562,40 @@ def obtenerCodBinario(accion):
     Entradas: accion (str) acción que se realizará posteriormente 
     Salidas: Continua con el procesamiento respectivo
     """
-    print(f"\n_____________________________________________________________\nCifrado binario - ({accion})\n") 
+    print("\n╔══════════════════════════════════════════════════╗")
+    print(f"    🔑 SUSTITUCION VIGENERE - ({accion.upper()})   ")
+    print("╚══════════════════════════════════════════════════╝\n")
+    frase = input(f"📝 Por favor, ingrese la frase que desea {accion}: ").lower()
     if accion == "codificar":
-        frase = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
         if validarFrase(frase)==False:
             return obtenerCodBinario(accion)
         print(procesarCodBinario(frase)) #<-- insertar parametros dentro de los parentesis
         return menu()    
     else:
-        datos = input(f"Por favor, ingrese la frase que desea {accion}: ").lower()
-        frase = datos.split(" ") # Aquí se dividen los datos de la frase en una lista, para facilitar su manipulación
-        if validarCodBinario(frase)==False:
+        fraselst = frase.split(" ") # Aquí se dividen los datos de la frase en una lista, para facilitar su manipulación
+        if validarCodBinario(fraselst)==False:
             return obtenerCodBinario(accion)
-        print(procesarDecodBinario(frase))
+        print(procesarDecodBinario(fraselst))
         return menu()
 
 # Funcionens de menú
+
+
 def elegirAccion(ejercicio):
     """
     Funcionamiento: Solicita los datos con los que se trabajarán e imprime los resultados
     Entradas: ejercicio (str) nombre del ejercicio al que pertenece la acción, accion (str) acción que desea realizar
     Salidas: resultado del proceso
     """
-    accion = input(f"___________________________\n¿Que acción desea realizar? - {ejercicio} \n1- Codificar     2- Decodificar     0- Regresar al menú\n>>> ")
+    print("\n╔══════════════════════════════════╗")
+    print(f"║  🎯 ¿QUÉ ACCIÓN DESEA REALIZAR?  ║")
+    print(f"          ({ejercicio})          ")
+    print("╠══════════════════════════════════╣")
+    print("║  1️⃣  Codificar                    ║")
+    print("║  2️⃣  Decodificar                  ║")
+    print("║  0️⃣  Regresar al menú             ║")
+    print("╚══════════════════════════════════╝")
+    accion = input(">>> ")
     if validarOpcion(accion, 2):
         if accion == "0":
             return 0
@@ -564,24 +606,45 @@ def elegirAccion(ejercicio):
     else:
         return elegirAccion(ejercicio)        
 
+encabezado = r"""
+        ╔══════════════════════════════════╗
+        ║        🔐 CRIPTOGRAFÍA 🔐        ║
+        ╠══════════════════════════════════╣
+        ║ Carlos Guzmán   | Samuel Gárces  ║
+        ║ 2022437782      | 2022437782     ║
+        ╚══════════════════════════════════╝
+"""
+
+menutxt = r"""
+ _____      _       _                         __ _       
+/  __ \    (_)     | |                       / _(_)      
+| /  \/_ __ _ _ __ | |_ ___   __ _ _ __ __ _| |_ _  __ _ 
+| |   | '__| | '_ \| __/ _ \ / _` | '__/ _` |  _| |/ _` |
+| \__/\ |  | | |_) | || (_) | (_| | | | (_| | | | | (_| |
+ \____/_|  |_| .__/ \__\___/ \__, |_|  \__,_|_| |_|\__,_|
+             | |              __/ |                      
+             |_|             |___/                       
+
+        ╔══════════════════════════════════╗
+        ║  1. Cifrado César                ║
+        ║  2. Cifrado por llave            ║
+        ║  3. Sustitución Vigenére         ║
+        ║  4. Sustitución XOR y llave      ║
+        ║  5. Palabra inversa              ║
+        ║  6. Mensaje inverso              ║
+        ║  7. Cifrado telefónico           ║
+        ║  8. Cifrado binario              ║
+        ║  0. Terminar                     ║
+        ╚══════════════════════════════════╝
+"""
+
 def menu(): ### Menú principal
     """
     Funcionamiento: De manera repetitiva, muestra el menú al usuario. 
     Entradas: opcion (int) opcion del menú
     Salidas: Resultado según lo solicitado
     """
-    print ("\n**************************")  
-    print ("*      Criptografía      *")
-    print ("**************************")
-    print ("1. Cifrado César ")
-    print ("2. Cifrado por llave ")
-    print ("3. Sustitución Vigenére ")
-    print ("4. Sustitución XOR y llave ")
-    print ("5. Palabra inversa ") 
-    print ("6. Mensaje inverso ")
-    print ("7. Cifrado telefónico ")
-    print ("8. Cifrado binario ")   
-    print ("0. Terminar")
+    print (menutxt)
     try:
         opcion = input("Seleccione una opción: ")
         if validarOpcion(opcion, 8)==False:  # Validación de las opciones
@@ -660,5 +723,5 @@ def menu(): ### Menú principal
         return menu()
 
 # Programa Principal (PP)
-print("\n----  Tarea Programada  ---\n Carlos Guzmán: 2022437782\n Samuel Gárces: 2022437782\n___________________________\n") # Encabezado
+print(encabezado)
 print(menu())
